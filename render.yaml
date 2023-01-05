@@ -8,7 +8,7 @@ services:
   - type: web
     name: expense-calculator
     env: ruby
-    regin: singapore
+    region: singapore
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
