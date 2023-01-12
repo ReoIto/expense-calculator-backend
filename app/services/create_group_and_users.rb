@@ -13,7 +13,7 @@ class CreateGroupAndUsers
       @group = Group.create!(group_params)
       user_names = users_params.map{|user_param| user_param[:name]}
       user_names.map do |name|
-        @users << group.users.create!(name: name)
+        @users << @group.users.create!(name: name)
       end
 
       data = {

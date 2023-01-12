@@ -17,6 +17,7 @@ module Api
         result = CreateGroupAndUsers.call group_and_users_params
         if result.success?
           render json: {
+            success: true,
             group: result.data[:group].to_json(only: [
               :id,
               :name,
@@ -25,7 +26,10 @@ module Api
             users: result.data[:users].to_json(only: [:name])
           }, status: :ok
         else
-          render json: { errors: result.errors.first.message }, status: :internal_server_error
+          render json: {
+            success: false,
+            errors: result.errors.first.message
+          }, status: :internal_server_error
         end
       end
 
