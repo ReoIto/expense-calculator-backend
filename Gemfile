@@ -46,3 +46,4 @@ group :development do
 end
 
 gem 'awesome_print', '1.9.2'
+gem 'dotenv-rails', '2.8.1'
