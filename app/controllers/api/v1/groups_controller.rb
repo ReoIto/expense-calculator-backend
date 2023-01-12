@@ -4,13 +4,14 @@ module Api
       def index
         groups = Group.all
 
-        render json: {
-          groups: groups.as_json(only: [
-            :id,
-            :name,
-            :descrioption
-          ]), status: :ok
-        }
+        # render json: {
+        #   groups: groups.as_json(only: [
+        #     :id,
+        #     :name,
+        #     :descrioption
+        #   ]), status: :ok
+        # }
+        render json: {test: ENV["FRONT_END_PROD_URL"]}, status: :ok
       end
 
       def create
