@@ -1,29 +1,18 @@
 module Api
   module V1
     class GroupsController < ApplicationController
-      def index
-        groups = Group.all
-
-        # render json: {
-        #   groups: groups.as_json(only: [
-        #     :id,
-        #     :name,
-        #     :descrioption
-        #   ]), status: :ok
-        # }
-        render json: {test: ENV["FRONT_END_PROD_URL"]}, status: :ok
-      end
-
       def create
         result = CreateGroupAndUsers.call group_and_users_params
+        group = result.data[:group]
+
         if result.success?
           render json: {
             success: true,
-            group: result.data[:group].to_json(only: [
-              :id,
-              :name,
-              :description
-            ]),
+            group: {
+              id: group.id,
+              name: group.name,
+              description: group.description
+            },
             users: result.data[:users].to_json(only: [:name])
           }, status: :ok
         else
@@ -32,6 +21,19 @@ module Api
             errors: result.errors.first.message
           }, status: :internal_server_error
         end
+      end
+
+      def show
+        group = Group.find_by!(id: params[:id])
+        users = group.users
+
+        render json: {
+          group: {
+            name: group.name,
+            description: group.description
+          },
+          users: users
+        }, status: :ok
       end
 
       private
