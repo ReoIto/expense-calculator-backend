@@ -11,7 +11,8 @@ module Api
             group: {
               id: group.id,
               name: group.name,
-              description: group.description
+              description: group.description,
+              created_at: group.created_at.strftime('%Y/%m/%d')
             },
             users: result.data[:users].to_json(only: [:name])
           }, status: :ok
