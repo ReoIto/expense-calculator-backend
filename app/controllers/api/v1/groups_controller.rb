@@ -3,9 +3,10 @@ module Api
     class GroupsController < ApplicationController
       def create
         result = CreateGroupAndUsers.call group_and_users_params
-        group = result.data[:group]
 
         if result.success?
+          group = result.data[:group]
+
           render json: {
             success: true,
             group: {
