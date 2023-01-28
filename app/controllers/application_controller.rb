@@ -3,6 +3,6 @@ class ApplicationController < ActionController::API
 
   private
   def to_snake_case!
-    params.transform_keys!{|k| k.underscore}
+    params.deep_transform_keys!{|k| k.underscore}
   end
 end
