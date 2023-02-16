@@ -8,10 +8,10 @@
 #  updated_at :datetime         not null
 #
 class User < ApplicationRecord
-  has_many :group_and_users
+  has_many :group_and_users, dependent: :destroy
   has_many :groups, through: :group_and_users
-  has_many :expense_and_users
-  has_many :expenses, through: :expense_and_users
+  has_many :expense_details, dependent: :destroy
+  has_many :expenses, through: :expense_details
   has_many :dealings
   has_many :rules
   has_many :debt_and_users

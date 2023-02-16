@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_070852) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_16_150014) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -52,13 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_070852) do
     t.index ["rule_id"], name: "index_expense_and_rules_on_rule_id"
   end
 
-  create_table "expense_and_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "expense_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "expense_id", null: false
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["expense_id"], name: "index_expense_and_users_on_expense_id"
-    t.index ["user_id"], name: "index_expense_and_users_on_user_id"
+    t.integer "amount", null: false
+    t.string "type"
+    t.index ["expense_id"], name: "index_expense_details_on_expense_id"
+    t.index ["user_id"], name: "index_expense_details_on_user_id"
   end
 
   create_table "expenses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -66,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_070852) do
     t.uuid "group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "expense_reason"
     t.index ["group_id"], name: "index_expenses_on_group_id"
   end
 
@@ -124,8 +127,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_070852) do
   add_foreign_key "debt_and_users", "users", column: "to_user_id"
   add_foreign_key "expense_and_rules", "expenses"
   add_foreign_key "expense_and_rules", "rules"
-  add_foreign_key "expense_and_users", "expenses"
-  add_foreign_key "expense_and_users", "users"
+  add_foreign_key "expense_details", "expenses"
+  add_foreign_key "expense_details", "users"
   add_foreign_key "expenses", "groups"
   add_foreign_key "group_and_users", "groups"
   add_foreign_key "group_and_users", "users"
