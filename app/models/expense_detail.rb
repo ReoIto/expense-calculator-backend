@@ -3,7 +3,7 @@
 # Table name: expense_details
 #
 #  id         :uuid             not null, primary key
-#  amount     :integer
+#  amount     :integer          not null
 #  type       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

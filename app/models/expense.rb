@@ -26,26 +26,3 @@ class Expense < ApplicationRecord
 
   validates :amount, numericality: true
 end
-
-# # 誰が
-# group.expenses.first.payer_details.first.user
-
-# # 誰の
-# group.expenses.first.payee_details.first.user
-
-# # 何を支払って
-# group.expenses.first.expense_reason
-
-# # いくらかかった
-# group.expenses.first.payer_details.first.amount
-
-# # いくら支払う
-# group.expenses.first.payee_details.first.amount
-
-# bundle exec rails g migration AddExpenseReasonToExpense expense_reason:string
-# bundle exec rails g migration ChangeExpenseAndUserToExpenseDetail
-# def change
-#   rename_table :expense_and_users, :expense_details
-# end
-# bundle exec rails g migration AddAmountToExpenseDetail amount:integer
-# bundle exec rails g migration AddTypeToExpenseDetail type:string
