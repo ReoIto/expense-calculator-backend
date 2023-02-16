@@ -1,0 +1,2 @@
+class PayeeDetail < ExpenseDetail
+end
